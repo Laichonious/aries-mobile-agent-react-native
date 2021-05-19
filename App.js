@@ -5,7 +5,6 @@ import { Redirect, Route, useHistory, useLocation } from 'react-router-native'
 //For UUIDv4 within React Native
 import 'react-native-get-random-values'
 
-import { AgentProvider } from './components/AgentProvider/'
 import Errors from './components/Errors/index'
 import Notifications from './components/Notifications/index'
 
@@ -20,6 +19,8 @@ import Settings from './components/Settings/index'
 import SetupWizard from './components/SetupWizard/index'
 import Terms from './components/Terms/index'
 import Workflow from './components/Workflow/index'
+import CredentialNotifications from './components/CredentialNotifications'
+import { AgentProvider } from './components/AgentProvider'
 
 const App = (props) => {
   let location = useLocation()

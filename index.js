@@ -8,10 +8,12 @@ import { BackButton, NativeRouter } from 'react-router-native'
 import App from './App'
 import { name as appName } from './app.json'
 
-const Base = (props) => (
+console.log(App)
+
+const Base = async (props) => (
   <NativeRouter>
     <BackButton>
-      <App />
+        <App />
     </BackButton>
   </NativeRouter>
 )

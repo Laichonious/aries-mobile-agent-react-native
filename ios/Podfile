@@ -12,6 +12,8 @@ target 'AriesBifold' do
     :hermes_enabled => true
   )
 
+  pod 'RNBackgroundFetch', :path => '../node_modules/react-native-background-fetch'
+
   target 'AriesBifoldTests' do
     inherit! :complete
     # Pods for testing
