@@ -14,6 +14,7 @@
     "postinstall": "patch-package"
   },
   "dependencies": {
+    "@aries-framework/redux-store": "0.1.0-alpha.242",
     "@azure/core-asynciterator-polyfill": "^1.0.0",
     "@react-native-community/async-storage": "^1.12.0",
     "@react-native-community/masked-view": "^0.1.11",
@@ -37,6 +38,7 @@
     "react-native-screens": "^3.3.0",
     "react-native-svg": "^12.1.0",
     "react-native-vector-icons": "^8.1.0",
+    "react-redux": "^7.2.4",
     "rn-indy-sdk": "0.1.9",
     "uuid": "^8.1.0"
   },

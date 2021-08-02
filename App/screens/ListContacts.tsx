@@ -2,6 +2,9 @@ import React, { useState, useEffect, useContext } from 'react'
 import { ConnectionEventType } from 'aries-framework'
 import { FlatList, RefreshControl } from 'react-native'
 
+import { useSelector, useDispatch } from 'react-redux'
+import { ConnectionsSelectors, ConnectionThunks } from '@aries-framework/redux-store'
+
 import AgentContext from '../contexts/AgentProvider'
 
 import { ContactListItem, Text } from 'components'
@@ -13,9 +16,12 @@ interface Props {
 
 const ListContacts: React.FC<Props> = ({ navigation }) => {
   const agentContext = useContext<any>(AgentContext)
+  const dispatch = useDispatch()
 
   const [contacts, setContacts] = useState<any>()
   const [refreshing, setRefreshing] = useState(false)
+
+  const selectedContacts = useSelector(ConnectionsSelectors.connectionsStateSelector)
 
   const getConnections = async () => {
     const connections = await agentContext.agent.connections.getAll()
@@ -34,16 +40,17 @@ const ListContacts: React.FC<Props> = ({ navigation }) => {
   }
 
   useEffect(() => {
-    if (!agentContext.loading) {
-      agentContext.agent.connections.events.removeAllListeners(ConnectionEventType.StateChanged)
-      agentContext.agent.connections.events.on(ConnectionEventType.StateChanged, handleConnectionStateChange)
-      getConnections()
-    }
-  }, [agentContext.loading])
+    // if (!agentContext.loading) {
+    // agentContext.agent.connections.events.removeAllListeners(ConnectionEventType.StateChanged)
+    // agentContext.agent.connections.events.on(ConnectionEventType.StateChanged, handleConnectionStateChange)
+    // getConnections()
+    dispatch(ConnectionThunks.getAllConnections())
+    // }
+  }, [])
 
   return (
     <FlatList
-      data={contacts}
+      data={selectedContacts.records}
       renderItem={({ item }) => <ContactListItem contact={item} />}
       keyExtractor={(item: any) => item.did}
       style={{ backgroundColor }}
