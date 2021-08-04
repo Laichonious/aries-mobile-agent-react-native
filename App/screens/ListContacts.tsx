@@ -21,12 +21,13 @@ const ListContacts: React.FC<Props> = ({ navigation }) => {
   const [contacts, setContacts] = useState<any>()
   const [refreshing, setRefreshing] = useState(false)
 
-  const selectedContacts = useSelector(ConnectionsSelectors.connectionsStateSelector)
+  const { records } = useSelector(ConnectionsSelectors.connectionsStateSelector)
 
   const getConnections = async () => {
     const connections = await agentContext.agent.connections.getAll()
     setContacts(connections)
   }
+  console.log('RECORDS', records)
 
   const handleConnectionStateChange = (event: any) => {
     console.info('Connections State Change', event)
@@ -50,12 +51,12 @@ const ListContacts: React.FC<Props> = ({ navigation }) => {
 
   return (
     <FlatList
-      data={selectedContacts.records}
+      data={records}
       renderItem={({ item }) => <ContactListItem contact={item} />}
       keyExtractor={(item: any) => item.did}
       style={{ backgroundColor }}
       ListEmptyComponent={() => <Text style={{ textAlign: 'center', margin: 100 }}>None yet!</Text>}
-      refreshControl={<RefreshControl tintColor={textColor} onRefresh={getConnections} refreshing={refreshing} />}
+      // refreshControl={<RefreshControl tintColor={textColor} onRefresh={getConnections} refreshing={refreshing} />}
     />
   )
 }

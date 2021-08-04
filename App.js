@@ -29,6 +29,8 @@ import Notifications from './App/contexts/Notifications'
 import TabNavigator from './App/navigators/TabNavigator'
 import AuthenticateStack from './App/navigators/AuthenticateStack'
 
+const { store, useAppDispatch } = initializeStore()
+
 export function useAgentListeners(agent, store) {
   useEffect(() => {
     // returns cleaner method
@@ -46,15 +48,12 @@ export function useAgentListeners(agent, store) {
 
 const App = () => {
   const [authenticated, setAuthenticated] = useState(false)
-  const [Lstore, setStore] = useState()
-  const [Lagent, setAgent] = useState()
+  const [localAgent, setLocalAgent] = useState()
 
   useEffect(async () => {
     const agent = await setUpAgent()
-    const { store, useAppDispatch } = initializeStore(agent)
-    await useAppDispatch(AgentThunks.initializeAgent())
-    setStore(store)
-    setAgent(agent)
+    useAppDispatch(AgentThunks.initializeAgent(agent))
+    setLocalAgent(agent)
     useAgentListeners(agent, store)
   }, [])
 
@@ -87,8 +86,8 @@ const App = () => {
   }
 
   return (
-    <Provider store={Lstore}>
-      <AgentProvider Lagent={Lagent}>
+    <Provider store={store}>
+      <AgentProvider agent={localAgent}>
         <Errors>
           <Notifications>
             <View style={{ height: '100%' }}>

@@ -14,7 +14,7 @@
     "postinstall": "patch-package"
   },
   "dependencies": {
-    "@aries-framework/redux-store": "0.1.0-alpha.242",
+    "@aries-framework/redux-store": "file:aries-framework-redux-store-v1.0.0.tgz",
     "@azure/core-asynciterator-polyfill": "^1.0.0",
     "@react-native-community/async-storage": "^1.12.0",
     "@react-native-community/masked-view": "^0.1.11",

@@ -46,23 +46,23 @@ const Home: React.FC<Props> = ({ navigation }) => {
     }
   }
 
-  useEffect(() => {
-    if (!agentContext.loading) {
-      getNotifications()
-    }
-  }, [agentContext.loading])
+  // useEffect(() => {
+  //   if (!agentContext.loading) {
+  //     getNotifications()
+  //   }
+  // }, [agentContext.loading])
 
-  useEffect(() => {
-    if (!agentContext.loading) {
-      agentContext.agent.credentials.events.on(CredentialEventType.StateChanged, handleCredentialStateChange)
-    }
+  // useEffect(() => {
+  //   if (!agentContext.loading) {
+  //     agentContext.agent.credentials.events.on(CredentialEventType.StateChanged, handleCredentialStateChange)
+  //   }
 
-    return () =>
-      agentContext.agent.credentials.events.removeListener(
-        CredentialEventType.StateChanged,
-        handleCredentialStateChange
-      )
-  })
+  //   return () =>
+  //     agentContext.agent.credentials.events.removeListener(
+  //       CredentialEventType.StateChanged,
+  //       handleCredentialStateChange
+  //     )
+  // })
 
   return (
     <SafeAreaScrollView>
