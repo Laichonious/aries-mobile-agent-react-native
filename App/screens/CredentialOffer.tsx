@@ -104,7 +104,15 @@ const CredentialOffer: React.FC<Props> = ({ navigation, route }) => {
           <FlatList
             data={credential?.credentialAttributes}
             keyExtractor={(item) => item.name}
-            renderItem={({ item }) => <Label title={item.name} subtitle={item.value} />}
+            renderItem={({ item }) => (
+              <Label
+                title={item.name
+                  .split('_')
+                  .map((word) => (word === 'of' ? word : word[0].toUpperCase() + word.slice(1)))
+                  .join(' ')}
+                subtitle={item.value}
+              />
+            )}
           />
         }
       />

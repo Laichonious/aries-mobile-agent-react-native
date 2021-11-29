@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { View, Text, StyleSheet, TextInput as TI, TextInputProps } from 'react-native'
 
-import { mainColor, textColor, shadow, borderRadius } from '../../globalStyles'
+import { mainColor, shadow, textColor, borderRadius, disabledTextColor } from '../../globalStyles'
 
 interface Props extends TextInputProps {
   label: string

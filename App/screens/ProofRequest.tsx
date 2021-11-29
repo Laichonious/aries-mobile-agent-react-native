@@ -31,11 +31,11 @@ const styles = StyleSheet.create({
 
 const transformAttributes = (attributes: any) => {
   const transformedAttributes = []
+
   for (const attribute in attributes) {
     transformedAttributes.push({
       name: attribute,
-      value: attributes[attribute][0].credentialInfo.attributes[attribute],
-      credentialDefinitionId: parseSchema(attributes[attribute][0].credentialInfo.schemaId),
+      value: attributes[attribute],
     })
   }
   return transformedAttributes
@@ -43,9 +43,9 @@ const transformAttributes = (attributes: any) => {
 
 const CredentialOffer: React.FC<Props> = ({ navigation, route }) => {
   const { agent } = useAgent()
+  const [retrievedCredentials, setRetrievedCredentials] = useState()
+  const [retrievedCredentialsDisplay, setRetrievedCredentialsDisplay] = useState()
   const [buttonsVisible, setButtonsVisible] = useState(true)
-  const [retrievedCredentials, setRetrievedCredentials] = useState<RetrievedCredentials>(null)
-  const [retrievedCredentialsDisplay, setRetrievedCredentialsDisplay] = useState<any>(null)
   const proofId = route?.params?.proofId
   const proof = useProofById(proofId)
   const connection = useConnectionById(proof?.connectionId)
@@ -62,33 +62,18 @@ const CredentialOffer: React.FC<Props> = ({ navigation, route }) => {
   }, [proof])
 
   const getRetrievedCredentials = async () => {
-    try {
-      if (!proof?.requestMessage?.indyProofRequest) {
-        Toast.show({
-          type: 'error',
-          text1: t('ProofRequest.ProofNotFound'),
-        })
-        throw new Error('Indy proof request not found')
-      }
-      const retrievedCreds = await agent?.proofs?.getRequestedCredentialsForProofRequest(
-        proof?.requestMessage?.indyProofRequest,
-        undefined
+    const retrievedCreds = await agent?.proofs.getRequestedCredentialsForProofRequest(
+      proof?.requestMessage?.indyProofRequest,
+      undefined
+    )
+
+    setRetrievedCredentials(retrievedCreds)
+    setRetrievedCredentialsDisplay(
+      transformAttributes(
+        retrievedCreds.requestedAttributes[Object.keys(retrievedCreds.requestedAttributes)[0]][0].credentialInfo
+          .attributes
       )
-      if (!retrievedCreds) {
-        Toast.show({
-          type: 'error',
-          text1: t('ProofRequest.RequestedCredsNotFound'),
-        })
-        throw new Error('Retrieved creds not found')
-      }
-      setRetrievedCredentials(retrievedCreds)
-      setRetrievedCredentialsDisplay(transformAttributes(retrievedCreds?.requestedAttributes))
-    } catch {
-      Toast.show({
-        type: 'error',
-        text1: t('Global.Failure'),
-      })
-    }
+    )
   }
 
   useEffect(() => {
@@ -160,7 +145,14 @@ const CredentialOffer: React.FC<Props> = ({ navigation, route }) => {
             data={retrievedCredentialsDisplay}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
-              <Label title={item.name} subtitle={item.value} label={item.credentialDefinitionId} />
+              <Label
+                title={item.name
+                  .split('_')
+                  .map((word: string) => (word === 'of' ? word : word[0].toUpperCase() + word.slice(1)))
+                  .join(' ')}
+                subtitle={item.value}
+                label={item.credentialDefinitionId}
+              />
             )}
           />
         }

@@ -1,90 +1,65 @@
-import React, { useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import { useWindowDimensions, Vibration, View, StyleSheet } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { View, StyleSheet } from 'react-native'
+
 import { BarCodeReadEvent, RNCamera } from 'react-native-camera'
 
-import { mainColor } from '../../globalStyles'
-
-import QRScannerTorch from 'components/misc/QRScannerTorch'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   handleCodeScan: (event: BarCodeReadEvent) => Promise<void>
 }
 
 const styles = StyleSheet.create({
-  container: {
+  camera: {
+    backgroundColor: 'black',
     height: '100%',
     width: '100%',
-    backgroundColor: 'black',
     justifyContent: 'center',
     alignItems: 'center',
   },
   viewFinder: {
-    width: 250,
     height: 250,
-    borderRadius: 24,
-    borderWidth: 2,
-    borderColor: mainColor,
-    backgroundColor: '#ffffff30',
-  },
-  viewFinderContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: 250,
+    padding: 100,
+    backgroundColor: 'transparent',
+    borderRadius: 20,
+    borderWidth: 5,
+    borderColor: 'rgba(255, 255, 255, 0.4)',
   },
 })
 
-const CameraViewContainer: React.FC<{ portrait: boolean }> = ({ portrait, children }) => {
-  return (
-    <View
-      style={{
-        flex: 1,
-        flexDirection: portrait ? 'column' : 'row',
-        alignItems: 'center',
-      }}
-    >
-      {children}
-    </View>
-  )
-}
-
 const QRScanner: React.FC<Props> = ({ handleCodeScan }) => {
-  const [cameraActive, setCameraActive] = useState(true)
-  const [torchActive, setTorchActive] = useState(false)
-
-  const { width, height } = useWindowDimensions()
-  const portraitMode = height > width
+  const [active, setActive] = useState(true)
   const { t } = useTranslation()
 
+  useEffect(() => {
+    if (!active) {
+      setTimeout(() => setActive(true), 5000)
+    }
+  }, [active])
+
   return (
-    <View style={styles.container}>
-      <RNCamera
-        style={styles.container}
-        type={RNCamera.Constants.Type.back}
-        flashMode={torchActive ? RNCamera.Constants.FlashMode.torch : RNCamera.Constants.FlashMode.off}
-        captureAudio={false}
-        androidCameraPermissionOptions={{
-          title: t('QRScanner.PermissionToUseCamera'),
-          message: t('QRScanner.WeNeedYourPermissionToUseYourCamera'),
-          buttonPositive: t('QRScanner.Ok'),
-          buttonNegative: t('Global.Cancel'),
-        }}
-        barCodeTypes={[RNCamera.Constants.BarCodeType.qr]}
-        onBarCodeRead={(e) => {
-          if (cameraActive) {
-            Vibration.vibrate()
-            setCameraActive(false)
+    <View style={styles.camera}>
+      {active && (
+        <RNCamera
+          style={styles.camera}
+          type={RNCamera.Constants.Type.back}
+          captureAudio={false}
+          androidCameraPermissionOptions={{
+            title: t('QRScanner.PermissionToUseCamera'),
+            message: t('QRScanner.WeNeedYourPermissionToUseYourCamera'),
+            buttonPositive: t('QRScanner.Ok'),
+            buttonNegative: t('Global.Cancel'),
+          }}
+          barCodeTypes={[RNCamera.Constants.BarCodeType.qr]}
+          onBarCodeRead={(e) => {
+            setActive(false)
             handleCodeScan(e)
-          }
-        }}
-      >
-        <CameraViewContainer portrait={portraitMode}>
-          <View style={styles.viewFinderContainer}>
-            <View style={styles.viewFinder} />
-          </View>
-          <QRScannerTorch active={torchActive} onPress={() => setTorchActive(!torchActive)} />
-        </CameraViewContainer>
-      </RNCamera>
+          }}
+        >
+          <View style={styles.viewFinder} />
+        </RNCamera>
+      )}
     </View>
   )
 }

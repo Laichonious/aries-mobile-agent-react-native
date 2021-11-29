@@ -1,14 +1,16 @@
-import type { CredentialRecord } from '@aries-framework/core'
-
-import { useConnectionById } from '@aries-framework/react-hooks'
-import { useNavigation } from '@react-navigation/core'
 import React from 'react'
 import { TouchableOpacity, StyleSheet, View } from 'react-native'
+import { useNavigation } from '@react-navigation/core'
+import { useConnectionById } from '@aries-framework/react-hooks'
+import type { CredentialRecord } from '@aries-framework/core'
+import { DateTime } from 'luxon'
+
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
-import { textColor, backgroundColor, borderRadius } from '../../globalStyles'
-import { parseSchema } from '../../helpers'
 import Text from '../texts/Text'
+
+import { backgroundColor, borderRadius, disabledTextColor, mainColor, shadow } from '../../globalStyles'
+import { parseSchema } from '../../helpers'
 
 interface Props {
   notification: CredentialRecord
@@ -17,23 +19,32 @@ interface Props {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 5,
     paddingVertical: 10,
-    paddingLeft: 10,
     borderRadius,
-    backgroundColor,
+    paddingLeft: 15,
   },
   title: {
+    fontSize: 14,
     fontWeight: 'bold',
+    marginBottom: 5,
   },
+  icon: { backgroundColor: mainColor, borderRadius: 100, padding: 10, marginRight: 10 },
+  card: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: 15,
+    borderBottomWidth: 0.5,
+    borderBottomColor: disabledTextColor,
+  },
+  date: { fontSize: 10, alignSelf: 'flex-start', paddingRight: 15, paddingTop: 5 },
 })
 
 const NotificationCredentialListItem: React.FC<Props> = ({ notification }) => {
   const navigation = useNavigation()
 
-  const { metadata, connectionId, id } = notification
+  const { metadata, connectionId, id, createdAt } = notification
 
   const connection = useConnectionById(connectionId)
 
@@ -42,11 +53,16 @@ const NotificationCredentialListItem: React.FC<Props> = ({ notification }) => {
       style={styles.container}
       onPress={() => navigation.navigate('Credential Offer', { credentialId: id })}
     >
-      <View>
-        <Text style={styles.title}>{parseSchema(metadata?.schemaId)}</Text>
-        <Text>{connection?.alias || connection?.invitation?.label}</Text>
+      <View style={styles.icon}>
+        <Icon name="credit-card" color={backgroundColor} size={30} />
       </View>
-      <Icon name="chevron-right" color={textColor} size={30} />
+      <View style={styles.card}>
+        <View>
+          <Text style={styles.title}>{parseSchema(metadata?.schemaId)}</Text>
+          <Text style={{ fontSize: 12 }}>{connection?.alias || connection?.invitation?.label}</Text>
+        </View>
+        <Text style={styles.date}>{DateTime.fromJSDate(createdAt).toFormat('LLL d, yyyy')}</Text>
+      </View>
     </TouchableOpacity>
   )
 }

@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
 
 interface Props {
   children: React.ReactNode
-  style?: TextStyle
+  style?: any
 }
 
 const Text: React.FC<Props> = ({ children, style }) => {

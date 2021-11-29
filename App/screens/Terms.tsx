@@ -16,7 +16,7 @@ const Terms: React.FC<Props> = ({ navigation }) => {
 
   return (
     <SafeAreaScrollView>
-      <AppHeaderLarge />
+      {/* <AppHeaderLarge /> */}
       <ModularView title={t('Terms.TermsOfService')} content={t('Terms.TermsOfServiceText')} />
       <CheckBoxRow
         title={t('Terms.IAgree')}

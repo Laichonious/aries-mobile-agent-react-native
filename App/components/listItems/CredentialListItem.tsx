@@ -3,15 +3,13 @@ import type { StackNavigationProp } from '@react-navigation/stack'
 import type { CredentialStackParams } from 'navigators/CredentialStack'
 
 import { useNavigation } from '@react-navigation/core'
-import { DateTime } from 'luxon'
 import React from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
-import { shadow, textColor } from '../../globalStyles'
+import { mainColor, secondaryTextColor } from '../../globalStyles'
 import { parseSchema } from '../../helpers'
-import Text from '../texts/Text'
-import Title from '../texts/Title'
+import { Text } from 'components'
 
 interface Props {
   credential: CredentialRecord
@@ -19,14 +17,17 @@ interface Props {
 
 const styles = StyleSheet.create({
   container: {
-    height: 200,
+    height: 230,
     marginTop: 15,
     marginHorizontal: 15,
-    padding: 10,
-    backgroundColor: shadow,
+    padding: 15,
+    paddingTop: 10,
+    backgroundColor: mainColor,
     borderRadius: 15,
     justifyContent: 'space-between',
   },
+  row: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
+  text: { color: secondaryTextColor, fontWeight: '500' },
 })
 
 const CredentialListItem: React.FC<Props> = ({ credential }) => {
@@ -36,19 +37,16 @@ const CredentialListItem: React.FC<Props> = ({ credential }) => {
       style={styles.container}
       onPress={() => navigation.navigate('Credential Details', { credentialId: credential.id })}
     >
-      <View>
-        <Title style={{ color: textColor }}>{parseSchema(credential.metadata.schemaId)}</Title>
-        <Text style={{ color: textColor }}>
-          Issued on {DateTime.fromJSDate(credential.createdAt).toFormat('LLL d, yyyy')}
-        </Text>
+      <View style={styles.row}>
+        <Text style={styles.text}>{parseSchema(credential.metadata.schemaId).toUpperCase()}</Text>
+        <Icon name="chevron-right" color={secondaryTextColor} size={30} />
       </View>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-        <Text style={{ color: textColor }}>
+      <View style={[styles.row, { alignItems: 'baseline' }]}>
+        <Text style={[styles.text, { fontSize: 18 }]}>
           {credential?.credentialAttributes?.find((n) => n.name === 'given_name')?.value}{' '}
           {credential?.credentialAttributes?.find((n) => n.name === 'surname')?.value}
         </Text>
-
-        <Icon name="chevron-right" color={textColor} size={30} />
+        <Icon name="face" color={secondaryTextColor} size={50} />
       </View>
     </TouchableOpacity>
   )

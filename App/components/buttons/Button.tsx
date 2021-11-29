@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, TouchableOpacity } from 'react-native'
 
-import { borderRadius, mainColor, shadow, textColor } from '../../globalStyles'
+import { borderRadius, green, mainColor, red, shadow, textColor } from '../../globalStyles'
 import Text from '../texts/Text'
 
 interface Props {
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     backgroundColor: textColor,
   },
   negative: {
-    backgroundColor: '#de3333',
+    backgroundColor: red,
   },
   text: {
     fontSize: 16,

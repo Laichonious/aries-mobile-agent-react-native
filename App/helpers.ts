@@ -4,7 +4,8 @@ export function parseSchema(schemaId?: string): string {
     const schemaIdParts = schemaId.match(schemaIdRegex)
 
     if (schemaIdParts!.length === 5) {
-      const prettyName = `${schemaIdParts![3].replace(/_/g, ' ')} V${schemaIdParts![4]}`
+      const prettyName = `${schemaIdParts![3].replace(/_/g, ' ')}`
+      //  V${schemaIdParts![4]}
       return prettyName
     } else {
       return 'Credential'

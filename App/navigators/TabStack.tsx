@@ -35,15 +35,15 @@ function TabStack() {
       <Tab.Screen
         name="HomeTab"
         accessible={true}
-        accessibilityLabel={t('TabStack.Home')}
+        accessibilityLabel={t('TabStack.Inbox')}
         component={HomeStack}
         options={{
-          tabBarIcon: ({ color }) => <Icon name="home" color={color} size={30} />,
-          headerTitle: t('TabStack.Home'),
-          tabBarLabel: t('TabStack.Home'),
+          tabBarIcon: ({ color }) => <Icon name="inbox" color={color} size={30} />,
+          headerTitle: t('TabStack.Inbox'),
+          tabBarLabel: t('TabStack.Inbox'),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="ContactsTab"
         accessible={true}
         accessibilityLabel={t('TabStack.Contacts')}
@@ -53,13 +53,13 @@ function TabStack() {
           headerTitle: t('TabStack.Contacts'),
           tabBarLabel: t('TabStack.Contacts'),
         }}
-      />
+      /> */}
       <Tab.Screen
         name="ScanTab"
         accessible={true}
         accessibilityLabel={t('TabStack.Scan')}
         options={{
-          tabBarIcon: ({ color }) => <Icon name="add-box" color={color} size={30} />,
+          tabBarIcon: ({ color }) => <Icon name="center-focus-weak" color={color} size={30} />,
           headerTitle: t('TabStack.Scan'),
           tabBarLabel: t('TabStack.Scan'),
         }}
@@ -79,12 +79,12 @@ function TabStack() {
         accessibilityLabel={t('TabStack.Credentials')}
         component={CredentialStack}
         options={{
-          tabBarIcon: ({ color }) => <Icon name="book" color={color} size={28} />,
+          tabBarIcon: ({ color }) => <Icon name="credit-card" color={color} size={28} />,
           headerTitle: t('TabStack.Credentials'),
           tabBarLabel: t('TabStack.Credentials'),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="SettingsTab"
         accessible={true}
         accessibilityLabel={t('TabStack.Settings')}
@@ -94,7 +94,7 @@ function TabStack() {
           headerTitle: t('TabStack.Settings'),
           tabBarLabel: t('TabStack.Settings'),
         }}
-      />
+      /> */}
     </Tab.Navigator>
   )
 }
