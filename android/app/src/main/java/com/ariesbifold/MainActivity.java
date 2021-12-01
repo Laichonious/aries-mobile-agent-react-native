@@ -1,4 +1,6 @@
 package com.ariesbifold;
+import expo.modules.ReactActivityDelegateWrapper;
+import com.facebook.react.ReactActivityDelegate;
 import android.os.Bundle;
 import android.system.ErrnoException;
 import android.system.Os;
@@ -25,5 +27,12 @@ public class MainActivity extends ReactActivity {
   }
   protected String getMainComponentName() {
     return "aries-bifold";
+  }
+
+  @Override
+  protected ReactActivityDelegate createReactActivityDelegate() {
+    return new ReactActivityDelegateWrapper(this,
+      new ReactActivityDelegate(this, getMainComponentName())
+    );
   }
 }
