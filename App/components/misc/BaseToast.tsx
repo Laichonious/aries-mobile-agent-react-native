@@ -14,6 +14,7 @@ const BaseToast: React.FC<Props> = ({ title, backgroundColor, icon }) => {
     <View
       style={{
         padding: 20,
+        marginTop: 20,
         borderRadius: 10,
         backgroundColor: backgroundColor,
         flex: 1,
