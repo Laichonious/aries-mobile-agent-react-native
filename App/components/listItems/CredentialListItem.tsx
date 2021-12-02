@@ -1,10 +1,11 @@
-import type { CredentialRecord } from '@aries-framework/core'
+import { Connection, CredentialRecord } from '@aries-framework/core'
 import type { StackNavigationProp } from '@react-navigation/stack'
 import type { CredentialStackParams } from 'navigators/CredentialStack'
+import { useConnectionById } from '@aries-framework/react-hooks'
 
 import { useNavigation } from '@react-navigation/core'
 import React from 'react'
-import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import { mainColor, secondaryTextColor } from '../../globalStyles'
@@ -32,6 +33,7 @@ const styles = StyleSheet.create({
 
 const CredentialListItem: React.FC<Props> = ({ credential }) => {
   const navigation = useNavigation<StackNavigationProp<CredentialStackParams>>()
+  const connection = useConnectionById(credential.connectionId)
   return (
     <TouchableOpacity
       style={styles.container}
@@ -46,7 +48,7 @@ const CredentialListItem: React.FC<Props> = ({ credential }) => {
           {credential?.credentialAttributes?.find((n) => n.name === 'given_name')?.value}{' '}
           {credential?.credentialAttributes?.find((n) => n.name === 'surname')?.value}
         </Text>
-        <Icon name="face" color={secondaryTextColor} size={50} />
+        <Image style={{ height: 50, width: 50 }} source={{ uri: connection?.imageUrl }} />
       </View>
     </TouchableOpacity>
   )

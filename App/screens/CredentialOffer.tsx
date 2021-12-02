@@ -12,7 +12,7 @@ import Toast from 'react-native-toast-message'
 import { backgroundColor } from '../globalStyles'
 import { parseSchema } from '../helpers'
 
-import { Button, ModularView, Label } from 'components'
+import { Button, ModularView, Label, SafeAreaScrollView } from 'components'
 
 interface Props {
   navigation: StackNavigationProp<HomeStackParams, 'Credential Offer'>
@@ -96,29 +96,31 @@ const CredentialOffer: React.FC<Props> = ({ navigation, route }) => {
   }
 
   return (
-    <View style={styles.container}>
-      <ModularView
-        title={parseSchema(credential?.metadata.schemaId)}
-        subtitle={connection?.alias || connection?.invitation?.label}
-        content={
-          <FlatList
-            data={credential?.credentialAttributes}
-            keyExtractor={(item) => item.name}
-            renderItem={({ item }) => (
-              <Label
-                title={item.name
-                  .split('_')
-                  .map((word) => (word === 'of' ? word : word[0].toUpperCase() + word.slice(1)))
-                  .join(' ')}
-                subtitle={item.value}
-              />
-            )}
-          />
-        }
-      />
-      <Button title={t('Global.Accept')} onPress={handleAcceptPress} disabled={!buttonsVisible} />
-      <Button title={t('Global.Reject')} negative onPress={handleRejectPress} disabled={!buttonsVisible} />
-    </View>
+    <SafeAreaScrollView>
+      <View style={{ flex: 1, marginHorizontal: 15 }}>
+        <ModularView
+          title={parseSchema(credential?.metadata.schemaId)}
+          subtitle={connection?.alias || connection?.invitation?.label}
+          content={
+            <FlatList
+              data={credential?.credentialAttributes}
+              keyExtractor={(item) => item.name}
+              renderItem={({ item }) => (
+                <Label
+                  title={item.name
+                    .split('_')
+                    .map((word) => (word === 'of' ? word : word[0].toUpperCase() + word.slice(1)))
+                    .join(' ')}
+                  subtitle={item.value}
+                />
+              )}
+            />
+          }
+        />
+        <Button title={t('Global.Accept')} onPress={handleAcceptPress} disabled={!buttonsVisible} />
+        <Button title={t('Global.Reject')} negative onPress={handleRejectPress} disabled={!buttonsVisible} />
+      </View>
+    </SafeAreaScrollView>
   )
 }
 

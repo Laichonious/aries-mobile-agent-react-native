@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next'
 
 import { secondaryTextColor, borderRadius } from '../globalStyles'
 import { parseSchema } from '../helpers'
-import { ModularView, Label } from 'components'
+import { ModularView, Label, SafeAreaScrollView } from 'components'
 interface ICredentialDetailsProps {
   navigation: StackNavigationProp<CredentialStackParams, 'Credential Details'>
   route: RouteProp<CredentialStackParams, 'Credential Details'>
@@ -18,31 +18,36 @@ interface ICredentialDetailsProps {
 const CredentialDetails: React.FC<ICredentialDetailsProps> = ({ route }) => {
   const credential = useCredentialById(route?.params?.credentialId)
   const connection = useConnectionById(credential?.connectionId)
+  console.log(JSON.stringify(connection))
   const { t } = useTranslation()
 
   return (
-    <ModularView
-      title={parseSchema(credential?.metadata.schemaId)}
-      subtitle={connection?.alias || connection?.invitation?.label}
-      content={
-        <FlatList
-          ItemSeparatorComponent={() => (
-            <View style={{ width: '100%', borderBottomWidth: 0.5, borderColor: secondaryTextColor }}></View>
-          )}
-          data={credential?.credentialAttributes}
-          keyExtractor={(item) => item.name}
-          renderItem={({ item }) => (
-            <Label
-              title={item.name
-                .split('_')
-                .map((word) => (word === 'of' ? word : word[0].toUpperCase() + word.slice(1)))
-                .join(' ')}
-              subtitle={item.value}
+    <SafeAreaScrollView>
+      <View style={{ marginHorizontal: 15 }}>
+        <ModularView
+          title={parseSchema(credential?.metadata.schemaId)}
+          subtitle={connection?.alias || connection?.invitation?.label}
+          content={
+            <FlatList
+              ItemSeparatorComponent={() => (
+                <View style={{ width: '100%', borderBottomWidth: 0.5, borderColor: secondaryTextColor }}></View>
+              )}
+              data={credential?.credentialAttributes}
+              keyExtractor={(item) => item.name}
+              renderItem={({ item }) => (
+                <Label
+                  title={item.name
+                    .split('_')
+                    .map((word) => (word === 'of' ? word : word[0].toUpperCase() + word.slice(1)))
+                    .join(' ')}
+                  subtitle={item.value}
+                />
+              )}
             />
-          )}
+          }
         />
-      }
-    />
+      </View>
+    </SafeAreaScrollView>
   )
 }
 

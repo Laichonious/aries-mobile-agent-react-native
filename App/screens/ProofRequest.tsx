@@ -12,7 +12,7 @@ import Toast from 'react-native-toast-message'
 import { backgroundColor } from '../globalStyles'
 import { parseSchema } from '../helpers'
 
-import { Button, ModularView, Label } from 'components'
+import { Button, ModularView, Label, SafeAreaScrollView } from 'components'
 
 interface Props {
   navigation: StackNavigationProp<HomeStackParams, 'Proof Request'>
@@ -21,11 +21,8 @@ interface Props {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor,
-    height: '100%',
     flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
+    marginHorizontal: 15,
   },
 })
 
@@ -137,29 +134,31 @@ const CredentialOffer: React.FC<Props> = ({ navigation, route }) => {
   }
 
   return (
-    <View style={styles.container}>
-      <ModularView
-        title={proof?.requestMessage?.indyProofRequest?.name || connection?.alias || connection?.invitation?.label}
-        content={
-          <FlatList
-            data={retrievedCredentialsDisplay}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-              <Label
-                title={item.name
-                  .split('_')
-                  .map((word: string) => (word === 'of' ? word : word[0].toUpperCase() + word.slice(1)))
-                  .join(' ')}
-                subtitle={item.value}
-                label={item.credentialDefinitionId}
-              />
-            )}
-          />
-        }
-      />
-      <Button title={t('Global.Accept')} onPress={handleAcceptPress} disabled={!buttonsVisible} />
-      <Button title={t('Global.Reject')} negative onPress={handleRejectPress} disabled={!buttonsVisible} />
-    </View>
+    <SafeAreaScrollView>
+      <View style={styles.container}>
+        <ModularView
+          title={proof?.requestMessage?.indyProofRequest?.name || connection?.alias || connection?.invitation?.label}
+          content={
+            <FlatList
+              data={retrievedCredentialsDisplay}
+              keyExtractor={(item) => item.id}
+              renderItem={({ item }) => (
+                <Label
+                  title={item.name
+                    .split('_')
+                    .map((word: string) => (word === 'of' ? word : word[0].toUpperCase() + word.slice(1)))
+                    .join(' ')}
+                  subtitle={item.value}
+                  label={item.credentialDefinitionId}
+                />
+              )}
+            />
+          }
+        />
+        <Button title={t('Global.Accept')} onPress={handleAcceptPress} disabled={!buttonsVisible} />
+        <Button title={t('Global.Reject')} negative onPress={handleRejectPress} disabled={!buttonsVisible} />
+      </View>
+    </SafeAreaScrollView>
   )
 }
 

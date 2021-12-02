@@ -1,6 +1,7 @@
 import type { CredentialRecord } from '@aries-framework/core'
+import { CredentialState } from '@aries-framework/core'
 
-import { useCredentials } from '@aries-framework/react-hooks'
+import { useCredentialByState } from '@aries-framework/react-hooks'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList } from 'react-native'
@@ -10,7 +11,8 @@ import { backgroundColor } from '../globalStyles'
 import { CredentialListItem, Text } from 'components'
 
 const ListCredentials: React.FC = () => {
-  const { credentials } = useCredentials()
+  const credentialsDone = useCredentialByState(CredentialState.Done)
+  const credentialsReceived = useCredentialByState(CredentialState.CredentialReceived)
   const { t } = useTranslation()
 
   const emptyListComponent = () => <Text style={{ textAlign: 'center', marginTop: 100 }}>{t('Global.NoneYet!')}</Text>
@@ -19,7 +21,7 @@ const ListCredentials: React.FC = () => {
 
   return (
     <FlatList
-      data={credentials}
+      data={[...credentialsDone, ...credentialsReceived]}
       style={{ backgroundColor }}
       keyExtractor={keyForItem}
       ListEmptyComponent={emptyListComponent}
