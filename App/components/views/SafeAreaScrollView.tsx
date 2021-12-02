@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     backgroundColor,
   },
   scrollView: {
-    alignItems: 'center',
+    // alignItems: 'center',
   },
 })
 

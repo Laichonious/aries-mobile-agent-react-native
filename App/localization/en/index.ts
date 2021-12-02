@@ -11,6 +11,8 @@ const translation = {
     Reject: 'Reject',
     'ThisDecisionCannotBeChanged.': 'This decision cannot be changed.',
     Failure: 'Failure',
+    CreateIdentityWallet: 'Create Identity Wallet',
+    MoreInformation: 'More Information'
   },
   Language: {
     English: 'English',

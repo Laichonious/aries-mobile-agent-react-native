@@ -41,6 +41,7 @@ function TabStack() {
           tabBarIcon: ({ color }) => <Icon name="inbox" color={color} size={30} />,
           headerTitle: t('TabStack.Inbox'),
           tabBarLabel: t('TabStack.Inbox'),
+          headerShown: false,
         }}
       />
       {/* <Tab.Screen
@@ -82,6 +83,7 @@ function TabStack() {
           tabBarIcon: ({ color }) => <Icon name="credit-card" color={color} size={28} />,
           headerTitle: t('TabStack.Credentials'),
           tabBarLabel: t('TabStack.Credentials'),
+          headerShown: false,
         }}
       />
       {/* <Tab.Screen

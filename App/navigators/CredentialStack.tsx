@@ -16,7 +16,7 @@ const Stack = createStackNavigator<CredentialStackParams>()
 
 function CredentialStack() {
   return (
-    <Stack.Navigator screenOptions={{ ...defaultStackOptions, headerShown: false }}>
+    <Stack.Navigator screenOptions={defaultStackOptions}>
       <Stack.Screen name="Credentials" component={ListCredentials} />
       <Stack.Screen name="Credential Details" component={CredentialDetails} />
     </Stack.Navigator>
