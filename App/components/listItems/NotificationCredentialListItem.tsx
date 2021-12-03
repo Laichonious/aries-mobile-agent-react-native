@@ -1,5 +1,5 @@
 import React from 'react'
-import { TouchableOpacity, StyleSheet, View } from 'react-native'
+import { TouchableOpacity, StyleSheet, View, Image } from 'react-native'
 import { useNavigation } from '@react-navigation/core'
 import { useConnectionById } from '@aries-framework/react-hooks'
 import type { CredentialRecord } from '@aries-framework/core'
@@ -9,7 +9,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import Text from '../texts/Text'
 
-import { backgroundColor, borderRadius, disabledTextColor, mainColor, shadow } from '../../globalStyles'
+import { borderRadius, disabledTextColor, mainColor } from '../../globalStyles'
 import { parseSchema } from '../../helpers'
 
 interface Props {
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 5,
   },
-  icon: { backgroundColor: mainColor, borderRadius: 100, padding: 10, marginRight: 10 },
+  icon: { marginRight: 10 },
   card: {
     flex: 1,
     flexDirection: 'row',
@@ -54,7 +54,7 @@ const NotificationCredentialListItem: React.FC<Props> = ({ notification }) => {
       onPress={() => navigation.navigate('Credential Offer', { credentialId: id })}
     >
       <View style={styles.icon}>
-        <Icon name="credit-card" color={backgroundColor} size={30} />
+        <Image style={{ height: 50, width: 50 }} source={{ uri: connection?.imageUrl }} />
       </View>
       <View style={styles.card}>
         <View>

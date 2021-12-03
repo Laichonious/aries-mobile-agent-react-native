@@ -40,12 +40,16 @@ const CredentialOffer: React.FC<Props> = ({ navigation, route }) => {
   const { t } = useTranslation()
 
   useEffect(() => {
+    if (credential?.state === CredentialState.RequestSent) {
+      navigation.goBack()
+    }
     if (credential?.state === CredentialState.Done) {
+      setButtonsVisible(false)
       Toast.show({
         type: 'success',
         text1: t('CredentialOffer.SuccessfullyAcceptedCredential'),
       })
-      navigation.goBack()
+      // navigation.goBack()
     }
   }, [credential])
 
@@ -57,6 +61,10 @@ const CredentialOffer: React.FC<Props> = ({ navigation, route }) => {
     })
     try {
       await agent?.credentials.acceptOffer(credentialId)
+      Toast.show({
+        type: 'success',
+        text1: t('CredentialOffer.SuccessfullyAcceptedCredential'),
+      })
     } catch {
       Toast.show({
         type: 'error',

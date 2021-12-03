@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next'
 
 import { secondaryTextColor, borderRadius } from '../globalStyles'
 import { parseSchema } from '../helpers'
-import { ModularView, Label, SafeAreaScrollView } from 'components'
+import { ModularView, Label, SafeAreaScrollView, CredentialListItem } from 'components'
 interface ICredentialDetailsProps {
   navigation: StackNavigationProp<CredentialStackParams, 'Credential Details'>
   route: RouteProp<CredentialStackParams, 'Credential Details'>
@@ -24,6 +24,7 @@ const CredentialDetails: React.FC<ICredentialDetailsProps> = ({ route }) => {
   return (
     <SafeAreaScrollView>
       <View style={{ marginHorizontal: 15 }}>
+        <CredentialListItem credential={credential} />
         <ModularView
           title={parseSchema(credential?.metadata.schemaId)}
           subtitle={connection?.alias || connection?.invitation?.label}

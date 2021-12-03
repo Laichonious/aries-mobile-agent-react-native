@@ -1,15 +1,13 @@
 import React from 'react'
-import { TouchableOpacity, StyleSheet, View } from 'react-native'
+import { TouchableOpacity, StyleSheet, View, Image } from 'react-native'
 import { useNavigation } from '@react-navigation/core'
 import { useConnectionById } from '@aries-framework/react-hooks'
 import { ProofRecord } from '@aries-framework/core'
 import { DateTime } from 'luxon'
 
-import Icon from 'react-native-vector-icons/MaterialIcons'
-
 import Text from '../texts/Text'
 
-import { backgroundColor, borderRadius, mainColor, disabledTextColor } from '../../globalStyles'
+import { borderRadius, disabledTextColor } from '../../globalStyles'
 
 interface Props {
   notification: ProofRecord
@@ -28,7 +26,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 5,
   },
-  icon: { backgroundColor: mainColor, borderRadius: 100, padding: 10, marginRight: 10 },
+  icon: { marginRight: 10 },
   card: {
     flex: 1,
     flexDirection: 'row',
@@ -50,7 +48,7 @@ const NotificationProofListItem: React.FC<Props> = ({ notification }) => {
   return (
     <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('Proof Request', { proofId: id })}>
       <View style={styles.icon}>
-        <Icon name="fingerprint" color={backgroundColor} size={30} />
+        <Image style={{ height: 50, width: 50 }} source={{ uri: connection?.imageUrl }} />
       </View>
       <View style={styles.card}>
         <View>

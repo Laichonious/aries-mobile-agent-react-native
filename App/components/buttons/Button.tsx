@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, TouchableOpacity } from 'react-native'
 
-import { borderRadius, mainColor, red, secondaryTextColor, shadow, textColor } from '../../globalStyles'
+import { borderRadius, mainColor, secondaryTextColor, shadow, neutral, textColor, mediumGrey } from '../../globalStyles'
 import Text from '../texts/Text'
 
 interface Props {
@@ -26,14 +26,14 @@ const styles = StyleSheet.create({
     backgroundColor: shadow,
   },
   neutral: {
-    backgroundColor: textColor,
+    backgroundColor: neutral,
   },
   negative: {
-    backgroundColor: red,
+    backgroundColor: mediumGrey,
   },
   text: {
     fontSize: 16,
-    color: secondaryTextColor,
+    color: textColor,
   },
 })
 
@@ -48,7 +48,7 @@ const Button: React.FC<Props> = ({ title, accessibilityLabel, onPress, disabled,
       style={[styles.button, disabled && styles.disabled, neutral && styles.neutral, negative && styles.negative]}
       disabled={disabled}
     >
-      <Text style={[styles.text, neutral && { color: shadow }]}>{title}</Text>
+      <Text style={[styles.text, neutral && { color: secondaryTextColor }]}>{title}</Text>
     </TouchableOpacity>
   )
 }

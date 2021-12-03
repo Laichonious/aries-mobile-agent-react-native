@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
-import { mainColor } from '../globalStyles'
+import { shadow } from '../globalStyles'
 
 import ContactStack from './ContactStack'
 import CredentialStack from './CredentialStack'
@@ -27,9 +27,9 @@ function TabStack() {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarStyle: { backgroundColor: mainColor, elevation: 0, shadowOpacity: 0, borderTopWidth: 0 },
-        tabBarActiveTintColor: 'white',
-        tabBarInactiveTintColor: 'rgba(255,255,255,0.3)',
+        tabBarStyle: { backgroundColor: shadow, elevation: 0, shadowOpacity: 0, borderTopWidth: 0 },
+        tabBarActiveTintColor: 'black',
+        tabBarInactiveTintColor: 'rgba(0,0,0,0.3)',
       }}
     >
       <Tab.Screen
