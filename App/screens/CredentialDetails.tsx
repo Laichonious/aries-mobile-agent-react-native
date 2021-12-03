@@ -24,7 +24,7 @@ const CredentialDetails: React.FC<ICredentialDetailsProps> = ({ route }) => {
   return (
     <SafeAreaScrollView>
       <View style={{ marginHorizontal: 15 }}>
-        <CredentialListItem credential={credential} />
+        <CredentialListItem credential={credential} disabled={true} />
         <ModularView
           title={parseSchema(credential?.metadata.schemaId)}
           subtitle={connection?.alias || connection?.invitation?.label}

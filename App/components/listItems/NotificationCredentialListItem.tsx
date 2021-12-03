@@ -14,6 +14,7 @@ import { parseSchema } from '../../helpers'
 
 interface Props {
   notification: CredentialRecord
+  pending: boolean
 }
 
 const styles = StyleSheet.create({
@@ -41,18 +42,21 @@ const styles = StyleSheet.create({
   date: { fontSize: 10, alignSelf: 'flex-start', paddingRight: 15, paddingTop: 5 },
 })
 
-const NotificationCredentialListItem: React.FC<Props> = ({ notification }) => {
+const NotificationCredentialListItem: React.FC<Props> = ({ notification, pending }) => {
   const navigation = useNavigation()
 
   const { metadata, connectionId, id, createdAt } = notification
 
   const connection = useConnectionById(connectionId)
 
+  const navigate = () => {
+    pending
+      ? navigation.navigate('Credential Offer', { credentialId: id })
+      : navigation.navigate('CredentialsTab', { screen: 'Credential Details', params: { credentialId: id } })
+  }
+
   return (
-    <TouchableOpacity
-      style={styles.container}
-      onPress={() => navigation.navigate('Credential Offer', { credentialId: id })}
-    >
+    <TouchableOpacity style={styles.container} onPress={() => navigate()}>
       <View style={styles.icon}>
         <Image style={{ height: 50, width: 50 }} source={{ uri: connection?.imageUrl }} />
       </View>
