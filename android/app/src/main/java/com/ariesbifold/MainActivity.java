@@ -1,4 +1,4 @@
-package com.ariesbifold;
+package com.sicpa.wallet;
 import expo.modules.ReactActivityDelegateWrapper;
 import com.facebook.react.ReactActivityDelegate;
 import android.os.Bundle;
