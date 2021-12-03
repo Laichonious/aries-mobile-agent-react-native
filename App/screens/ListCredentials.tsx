@@ -25,7 +25,7 @@ const ListCredentials: React.FC = () => {
       style={{ backgroundColor }}
       keyExtractor={keyForItem}
       ListEmptyComponent={emptyListComponent}
-      renderItem={({ item }) => <CredentialListItem credential={item} />}
+      renderItem={({ item }) => <CredentialListItem credential={item} disabled={false} />}
     />
   )
 }

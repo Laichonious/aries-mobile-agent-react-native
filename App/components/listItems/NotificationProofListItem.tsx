@@ -11,6 +11,7 @@ import { borderRadius, disabledTextColor } from '../../globalStyles'
 
 interface Props {
   notification: ProofRecord
+  pending: boolean
 }
 
 const styles = StyleSheet.create({
@@ -38,15 +39,19 @@ const styles = StyleSheet.create({
   date: { fontSize: 10, alignSelf: 'flex-start', paddingRight: 15, paddingTop: 5 },
 })
 
-const NotificationProofListItem: React.FC<Props> = ({ notification }) => {
+const NotificationProofListItem: React.FC<Props> = ({ notification, pending }) => {
   const navigation = useNavigation()
 
   const { connectionId, requestMessage, id, createdAt } = notification
 
   const connection = useConnectionById(connectionId)
 
+  const navigate = () => {
+    pending ? navigation.navigate('Proof Request', { proofId: id }) : null
+  }
+
   return (
-    <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('Proof Request', { proofId: id })}>
+    <TouchableOpacity style={styles.container} onPress={() => navigate()} disabled={!pending}>
       <View style={styles.icon}>
         <Image style={{ height: 50, width: 50 }} source={{ uri: connection?.imageUrl }} />
       </View>

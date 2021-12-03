@@ -14,6 +14,7 @@ import { Text } from 'components'
 
 interface Props {
   credential: CredentialRecord
+  disabled?: boolean
 }
 
 const styles = StyleSheet.create({
@@ -31,13 +32,14 @@ const styles = StyleSheet.create({
   text: { color: secondaryTextColor, fontWeight: '500' },
 })
 
-const CredentialListItem: React.FC<Props> = ({ credential }) => {
+const CredentialListItem: React.FC<Props> = ({ credential, disabled }) => {
   const navigation = useNavigation<StackNavigationProp<CredentialStackParams>>()
   const connection = useConnectionById(credential.connectionId)
   return (
     <TouchableOpacity
       style={styles.container}
       onPress={() => navigation.navigate('Credential Details', { credentialId: credential.id })}
+      disabled={disabled}
     >
       <View style={styles.row}>
         <Text style={styles.text}>{parseSchema(credential.metadata.schemaId).toUpperCase()}</Text>

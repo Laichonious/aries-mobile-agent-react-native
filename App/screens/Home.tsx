@@ -43,9 +43,9 @@ const Home: React.FC = () => {
       keyExtractor={(item) => item.id}
       renderItem={({ item }) =>
         item.type === 'CredentialRecord' ? (
-          <NotificationCredentialListItem notification={item} />
+          <NotificationCredentialListItem notification={item} pending={item.state === CredentialState.OfferReceived} />
         ) : (
-          <NotificationProofListItem notification={item} />
+          <NotificationProofListItem notification={item} pending={item.state === ProofState.RequestReceived} />
         )
       }
       renderSectionHeader={({ section }) =>
