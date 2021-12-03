@@ -43,7 +43,7 @@ const CredentialListItem: React.FC<Props> = ({ credential, disabled }) => {
     >
       <View style={styles.row}>
         <Text style={styles.text}>{parseSchema(credential.metadata.schemaId).toUpperCase()}</Text>
-        <Icon name="chevron-right" color={secondaryTextColor} size={30} />
+        {!disabled ? <Icon name="chevron-right" color={secondaryTextColor} size={30} /> : null}
       </View>
       <View style={[styles.row, { alignItems: 'baseline' }]}>
         <Text style={[styles.text, { fontSize: 18 }]}>
