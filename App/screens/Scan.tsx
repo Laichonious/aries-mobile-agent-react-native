@@ -1,9 +1,8 @@
 import type { BarCodeReadEvent } from 'react-native-camera'
 
-import { ConnectionState } from '@aries-framework/core'
-import { useAgent, useConnectionById } from '@aries-framework/react-hooks'
+import { useAgent } from '@aries-framework/react-hooks'
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 import Toast from 'react-native-toast-message'
@@ -18,20 +17,7 @@ interface Props {
 
 const Scan: React.FC<Props> = ({ navigation }) => {
   const { agent } = useAgent()
-
-  const [connectionId, setConnectionId] = useState('')
-  const connection = useConnectionById(connectionId)
   const { t } = useTranslation()
-
-  useEffect(() => {
-    if (connection?.state === ConnectionState.Complete) {
-      Toast.show({
-        type: 'success',
-        text1: t('Scan.SuccessfullyAcceptedConnection'),
-      })
-      navigation.navigate('HomeTab')
-    }
-  }, [connection])
 
   const handleCodeScan = async (event: BarCodeReadEvent) => {
     Toast.show({
@@ -49,7 +35,7 @@ const Scan: React.FC<Props> = ({ navigation }) => {
         })
         throw new Error('Connection record ID not found')
       }
-      setConnectionId(connectionRecord.id)
+      navigation.navigate('HomeTab')
     } catch {
       Toast.show({
         type: 'error',
