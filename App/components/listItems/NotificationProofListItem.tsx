@@ -46,12 +46,12 @@ const NotificationProofListItem: React.FC<Props> = ({ notification, pending }) =
 
   const connection = useConnectionById(connectionId)
 
-  const navigate = () => {
-    pending ? navigation.navigate('Proof Request', { proofId: id }) : null
-  }
-
   return (
-    <TouchableOpacity style={styles.container} onPress={() => navigate()} disabled={!pending}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => navigation.navigate('Proof Request', { proofId: id })}
+      disabled={!pending}
+    >
       <View style={styles.icon}>
         <Image style={{ height: 50, width: 50 }} source={{ uri: connection?.imageUrl }} />
       </View>
