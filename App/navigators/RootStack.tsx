@@ -17,6 +17,7 @@ const Stack = createStackNavigator()
 
 function RootStack() {
   const [authenticated, setAuthenticated] = useState(false)
+  const [existingUser, setExistingUser] = useState(false)
   const { t } = useTranslation()
   const { agent } = useAgent()
 
@@ -24,6 +25,7 @@ function RootStack() {
     try {
       const existingUser = await AsyncStorage.getItem('ExistingUser')
       if (existingUser) {
+        setExistingUser(true)
         const auth = await LocalAuthentication.authenticateAsync()
         if (auth.success === true) {
           setAuthenticated(true)
@@ -70,7 +72,7 @@ function RootStack() {
       ) : (
         <Stack.Group>
           <Stack.Screen name="Authenticate" options={{ presentation: 'modal' }}>
-            {() => <AuthenticateStack setAuthenticated={setAuthenticated} />}
+            {() => <AuthenticateStack setAuthenticated={setAuthenticated} existingUser={existingUser} />}
           </Stack.Screen>
         </Stack.Group>
       )}

@@ -1,4 +1,5 @@
 import { RouteProp } from '@react-navigation/native'
+import type { StackNavigationProp } from '@react-navigation/stack'
 import type { AuthenticateStackParams } from 'navigators/AuthenticateStack'
 
 import React, { useEffect } from 'react'
@@ -10,14 +11,16 @@ import { Button } from 'components'
 
 interface Props {
   route: RouteProp<AuthenticateStackParams, 'Landing Screen'>
+  navigation: StackNavigationProp<AuthenticateStackParams, 'Landing Screen'>
 }
 
-const PinEnter: React.FC<Props> = ({ route }) => {
+const PinEnter: React.FC<Props> = ({ route, navigation }) => {
   const { t } = useTranslation()
 
   const setFirstLogin = async () => {
     await AsyncStorage.setItem('ExistingUser', 'true')
-    route.params?.setAuthenticated(true)
+    navigation.navigate('Create 6-Digit Pin')
+    // route.params?.setAuthenticated(true)
   }
 
   return (

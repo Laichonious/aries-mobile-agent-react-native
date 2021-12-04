@@ -3,7 +3,7 @@ import type { AuthenticateStackParams } from 'navigators/AuthenticateStack'
 
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Alert, Keyboard } from 'react-native'
+import { Alert, Keyboard, View } from 'react-native'
 import * as Keychain from 'react-native-keychain'
 
 import { Button, SafeAreaScrollView, TextInput } from 'components'
@@ -37,7 +37,7 @@ const PinCreate: React.FC<Props> = ({ route }) => {
   }
 
   return (
-    <SafeAreaScrollView>
+    <SafeAreaScrollView center>
       <TextInput
         label={t('Global.EnterPin')}
         placeholder={t('Global.6DigitPin')}
@@ -66,14 +66,16 @@ const PinCreate: React.FC<Props> = ({ route }) => {
           }
         }}
       />
-      <Button
-        title={t('PinCreate.Create')}
-        accessibilityLabel={t('PinCreate.Create')}
-        onPress={() => {
-          Keyboard.dismiss()
-          confirmEntry(pin, pinTwo)
-        }}
-      />
+      <View>
+        <Button
+          title={t('PinCreate.Create')}
+          accessibilityLabel={t('PinCreate.Create')}
+          onPress={() => {
+            Keyboard.dismiss()
+            confirmEntry(pin, pinTwo)
+          }}
+        />
+      </View>
     </SafeAreaScrollView>
   )
 }
