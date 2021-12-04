@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, TouchableOpacity } from 'react-native'
 
-import { borderRadius, mainColor, secondaryTextColor, shadow, neutral, red } from '../../globalStyles'
+import { borderRadius, mainColor, textColor, secondaryTextColor, shadow, neutral, red } from '../../globalStyles'
 import Text from '../texts/Text'
 
 interface Props {
@@ -48,7 +48,7 @@ const Button: React.FC<Props> = ({ title, accessibilityLabel, onPress, disabled,
       style={[styles.button, neutral && styles.neutral, negative && styles.negative, disabled && styles.disabled]}
       disabled={disabled}
     >
-      <Text style={[styles.text]}>{title}</Text>
+      <Text style={[styles.text, disabled && { color: textColor }]}>{title}</Text>
     </TouchableOpacity>
   )
 }
