@@ -54,6 +54,10 @@ function RootStack() {
     }
   }, [agent])
 
+  useEffect(() => {
+    authenticate()
+  }, [])
+
   return (
     <Stack.Navigator screenOptions={{ ...defaultStackOptions, headerShown: false }}>
       {authenticated ? (
