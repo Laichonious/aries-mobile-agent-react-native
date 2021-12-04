@@ -25,7 +25,7 @@ function RootStack() {
       const existingUser = await AsyncStorage.getItem('ExistingUser')
       if (existingUser) {
         const auth = await LocalAuthentication.authenticateAsync()
-        if (auth) {
+        if (auth.success === true) {
           setAuthenticated(true)
         }
       } else {

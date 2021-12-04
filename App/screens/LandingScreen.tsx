@@ -17,15 +17,17 @@ const PinEnter: React.FC<Props> = ({ route }) => {
 
   const setFirstLogin = async () => {
     await AsyncStorage.setItem('ExistingUser', 'true')
-    route.params?.setAuthenticated(true)
+    // route.params?.setAuthenticated(true)
   }
 
   return (
     <SafeAreaView>
-      <View style={{ paddingHorizontal: 15, justifyContent: 'flex-end' }}>
+      <View style={{ padding: 20, height: '100%', justifyContent: 'space-between' }}>
         <Image source={require('../assets/img/logo_luxembourg_1.png')} style={{ marginTop: 40 }} />
-        <Button title={t('Global.CreateIdentityWallet')} onPress={setFirstLogin} negative />
-        <Button title={t('Global.MoreInformation')} />
+        <View style={{ width: '100%' }}>
+          <Button title={t('Global.CreateIdentityWallet')} onPress={setFirstLogin} negative />
+          <Button title={t('Global.MoreInformation')} />
+        </View>
       </View>
     </SafeAreaView>
   )
