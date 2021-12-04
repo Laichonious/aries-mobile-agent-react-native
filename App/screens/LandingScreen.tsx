@@ -17,7 +17,7 @@ const PinEnter: React.FC<Props> = ({ route }) => {
 
   const setFirstLogin = async () => {
     await AsyncStorage.setItem('ExistingUser', 'true')
-    // route.params?.setAuthenticated(true)
+    route.params?.setAuthenticated(true)
   }
 
   return (
