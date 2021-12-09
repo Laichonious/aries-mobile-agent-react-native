@@ -26,7 +26,7 @@ public class MainActivity extends ReactActivity {
     }
   }
   protected String getMainComponentName() {
-    return "aries-bifold";
+    return "sicpa-wallet";
   }
 
   @Override

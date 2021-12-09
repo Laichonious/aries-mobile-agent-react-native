@@ -1,6 +1,6 @@
 {
-  "name": "aries-bifold",
-  "version": "0.0.1",
+  "name": "sicpa-wallet",
+  "version": "0.3.0",
   "scripts": {
     "style-check": "npm run prettier -- --check",
     "style-format": "npm run prettier -- --write",

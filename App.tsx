@@ -26,7 +26,7 @@ const App = () => {
   const initAgent = async () => {
     const newAgent = new Agent(
       {
-        label: 'Aries Bifold',
+        label: 'SICPA Wallet',
         mediatorConnectionsInvite: Config.MEDIATOR_URL,
         mediatorPickupStrategy: MediatorPickupStrategy.Implicit,
         walletConfig: { id: 'wallet4', key: '123' },
