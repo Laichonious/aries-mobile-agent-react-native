@@ -5,6 +5,7 @@ import { backgroundColor } from '../../globalStyles'
 
 interface Props {
   children: React.ReactNode
+  center?: true
 }
 
 const styles = StyleSheet.create({
@@ -12,15 +13,16 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor,
   },
-  scrollView: {
-    // alignItems: 'center',
+  center: {
+    alignItems: 'center',
+    // marginHorizontal: 20,
   },
 })
 
-const SafeAreaScrollView: React.FC<Props> = ({ children }) => {
+const SafeAreaScrollView: React.FC<Props> = ({ children, center }) => {
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollView}>{children}</ScrollView>
+      <ScrollView contentContainerStyle={center && styles.center}>{children}</ScrollView>
     </SafeAreaView>
   )
 }

@@ -3,7 +3,7 @@ import type { AuthenticateStackParams } from 'navigators/AuthenticateStack'
 
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Alert, Keyboard } from 'react-native'
+import { Alert, Keyboard, View } from 'react-native'
 import * as Keychain from 'react-native-keychain'
 
 import { TextInput, SafeAreaScrollView, Button } from 'components'
@@ -26,7 +26,7 @@ const PinEnter: React.FC<Props> = ({ route }) => {
   }
 
   return (
-    <SafeAreaScrollView>
+    <SafeAreaScrollView center>
       <TextInput
         label={t('Global.EnterPin')}
         accessible={true}
@@ -44,14 +44,16 @@ const PinEnter: React.FC<Props> = ({ route }) => {
           }
         }}
       />
-      <Button
-        title={t('Global.Submit')}
-        accessibilityLabel={t('Global.Submit')}
-        onPress={() => {
-          Keyboard.dismiss()
-          checkPin(pin)
-        }}
-      />
+      <View>
+        <Button
+          title={t('Global.Submit')}
+          accessibilityLabel={t('Global.Submit')}
+          onPress={() => {
+            Keyboard.dismiss()
+            checkPin(pin)
+          }}
+        />
+      </View>
     </SafeAreaScrollView>
   )
 }
