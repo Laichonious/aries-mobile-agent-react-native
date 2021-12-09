@@ -121,7 +121,7 @@ const CredentialOffer: React.FC<Props> = ({ navigation, route }) => {
             text1: t('ProofRequest.RejectingProof'),
           })
           try {
-            // await agent.proofs.rejectPresentation(id)
+            await agent?.proofs.deleteById(proof?.id)
             navigation.goBack()
           } catch {
             Toast.show({

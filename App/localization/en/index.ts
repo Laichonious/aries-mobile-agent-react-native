@@ -55,6 +55,7 @@ const translation = {
     ConnectionRecordIdNotFound: 'Connection record ID not found',
   },
   CredentialOffer: {
+    Credential: 'Credential',
     ThisIsTakingLongerThanExpected: 'This is taking Longer than expected. Check back later for your new credential.',
     'RejectThisCredential?': 'Reject this Credential?',
     AcceptingCredential: 'Accepting Credential',
@@ -63,6 +64,7 @@ const translation = {
     SuccessfullyRejectedCredential: 'Successfully Rejected Credential',
   },
   ProofRequest: {
+    Proof: 'Proof',
     OfferDelay: 'Offer delay',
     'RejectThisProof?': 'Reject this Proof?',
     AcceptingProof: 'Accepting Proof',

@@ -1,11 +1,10 @@
 import React from 'react'
 import { TouchableOpacity, StyleSheet, View, Image } from 'react-native'
-import { useNavigation } from '@react-navigation/core'
+import { NavigationHelpersContext, useNavigation } from '@react-navigation/core'
 import { useConnectionById } from '@aries-framework/react-hooks'
 import type { CredentialRecord } from '@aries-framework/core'
 import { DateTime } from 'luxon'
-
-import Icon from 'react-native-vector-icons/MaterialIcons'
+import { useTranslation } from 'react-i18next'
 
 import Text from '../texts/Text'
 
@@ -39,24 +38,29 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
     borderBottomColor: disabledTextColor,
   },
-  date: { fontSize: 10, alignSelf: 'flex-start', paddingRight: 15, paddingTop: 5 },
+  date: { fontSize: 10, alignSelf: 'flex-end', paddingRight: 15, paddingTop: 5 },
 })
 
 const NotificationCredentialListItem: React.FC<Props> = ({ notification, pending }) => {
   const navigation = useNavigation()
+  const { t } = useTranslation()
 
   const { metadata, connectionId, id, createdAt } = notification
 
   const connection = useConnectionById(connectionId)
 
-  const navigate = () => {
+  const handlePress = () => {
     pending
       ? navigation.navigate('Credential Offer', { credentialId: id })
-      : navigation.navigate('CredentialsTab', { screen: 'Credential Details', params: { credentialId: id } })
+      : navigation.navigate('CredentialsTab', {
+          screen: 'Credential Details',
+          params: { credentialId: id },
+          initial: false,
+        })
   }
 
   return (
-    <TouchableOpacity style={styles.container} onPress={() => navigate()}>
+    <TouchableOpacity style={styles.container} onPress={handlePress}>
       <View style={styles.icon}>
         <Image style={{ height: 50, width: 50 }} source={{ uri: connection?.imageUrl }} />
       </View>
@@ -65,7 +69,10 @@ const NotificationCredentialListItem: React.FC<Props> = ({ notification, pending
           <Text style={styles.title}>{parseSchema(metadata?.schemaId)}</Text>
           <Text style={{ fontSize: 12 }}>{connection?.alias || connection?.invitation?.label}</Text>
         </View>
-        <Text style={styles.date}>{DateTime.fromJSDate(createdAt).toFormat('LLL d, yyyy')}</Text>
+        <View>
+          <Text style={styles.date}>{DateTime.fromJSDate(createdAt).toFormat('LLL d, yyyy')}</Text>
+          <Text style={styles.date}>{t('CredentialOffer.Credential')}</Text>
+        </View>
       </View>
     </TouchableOpacity>
   )

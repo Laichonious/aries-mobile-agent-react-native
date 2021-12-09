@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
+// import AsyncStorage from '@react-native-async-storage/async-storage'
 import { createStackNavigator } from '@react-navigation/stack'
 import React, { useEffect, useState } from 'react'
 // eslint-disable-next-line import/namespace
@@ -6,7 +6,7 @@ import * as Keychain from 'react-native-keychain'
 
 import PinCreate from '../screens/PinCreate'
 import PinEnter from '../screens/PinEnter'
-import Terms from '../screens/Terms'
+// import Terms from '../screens/Terms'
 import LandingScreen from '../screens/LandingScreen'
 
 import defaultStackOptions from './defaultStackOptions'

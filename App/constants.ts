@@ -1,1 +1,1 @@
-export const defaultLanguage = 'en'
+export const defaultLanguage = 'fr'

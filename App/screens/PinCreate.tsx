@@ -5,6 +5,7 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert, Keyboard, View } from 'react-native'
 import * as Keychain from 'react-native-keychain'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import { Button, SafeAreaScrollView, TextInput } from 'components'
 
@@ -25,13 +26,15 @@ const PinCreate: React.FC<Props> = ({ route }) => {
     })
   }
 
-  const confirmEntry = (x: string, y: string) => {
+  const confirmEntry = async (x: string, y: string) => {
     if (x.length < 6 || y.length < 6) {
       Alert.alert(t('PinCreate.PinMustBe6DigitsInLength'))
     } else if (x !== y) {
       Alert.alert(t('PinCreate.PinsEnteredDoNotMatch'))
     } else {
       passcodeCreate(x)
+      await AsyncStorage.setItem('ExistingUser', 'true')
+      // route.params?.setAuthenticated(true)
       route?.params?.setAuthenticated(true)
     }
   }
