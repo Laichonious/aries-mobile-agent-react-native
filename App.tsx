@@ -30,22 +30,6 @@ const App = () => {
 
   const navigation = useNavigation()
 
-  // const handleUrl = (event: any) => {
-  //   console.log(event.url)
-  //   let cleanedUrl = event.url.split('didcomm://app/')[1]
-
-  //   switch (true) {
-  //     case cleanedUrl.startsWith('invitation'):
-  //       const queryString = cleanedUrl.split('?')?.[1]
-  //       console.log(queryString)
-  //       return navigation.navigate('Scan', {
-  //         params: queryString,
-  //       })
-  //     default:
-  //       return navigation.navigate('Home')
-  //   }
-  // }
-
   const handleNavigation = (url: any) => {
     const nav = handleUrl(url)
     console.log(nav)
