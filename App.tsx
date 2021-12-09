@@ -12,12 +12,9 @@ import { agentDependencies } from '@aries-framework/react-native'
 import { default as React, useEffect, useState } from 'react'
 import Config from 'react-native-config'
 import Toast from 'react-native-toast-message'
-// import * as Linking from 'expo-linking'
-import { Linking } from 'react-native'
 import { useNavigation } from '@react-navigation/core'
 
 import { initStoredLanguage } from './App/localization'
-import handleUrl from './App/linking'
 import RootStack from './App/navigators/RootStack'
 import indyLedgers from './configs/ledgers/indy'
 import toastConfig from './configs/toast/toastConfig'
@@ -55,21 +52,6 @@ const App = () => {
     await newAgent.initialize()
     setAgent(newAgent)
   }
-
-  // const handleNavigation = (url: any) => {
-  //   const nav = handleUrl(url)
-  //   console.log(nav)
-  // }
-
-  // Linking.getInitialURL()
-  //   .then((event) => {
-  //     if (event) {
-  //       handleNavigation(event)
-  //     }
-  //   })
-  //   .catch((err) => console.warn(err))
-
-  // Linking.addEventListener('url', handleNavigation)
 
   useEffect(() => {
     initAgent()

@@ -26,8 +26,6 @@ function RootStack() {
   const navigation = useNavigation()
 
   useDidCommDeepLink((url: string, initialUrl: boolean) => {
-    // const nav = handleUrl(url)
-    // console.log(nav)
     console.log(`Recieved Deeplink ${url}, initialUrl: ${initialUrl}`)
     setInvitationToProcess(url)
   })
