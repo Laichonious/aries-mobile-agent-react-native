@@ -34,7 +34,6 @@ const PinCreate: React.FC<Props> = ({ route }) => {
     } else {
       passcodeCreate(x)
       await AsyncStorage.setItem('ExistingUser', 'true')
-      // route.params?.setAuthenticated(true)
       route?.params?.setAuthenticated(true)
     }
   }

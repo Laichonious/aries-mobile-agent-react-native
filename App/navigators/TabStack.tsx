@@ -6,9 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import { shadow } from '../globalStyles'
 
-import ContactStack from './ContactStack'
 import CredentialStack from './CredentialStack'
-import ScanStack from './ScanStack'
 import HomeStack from './HomeStack'
 import SettingStack from './SettingStack'
 

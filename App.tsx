@@ -12,7 +12,6 @@ import { agentDependencies } from '@aries-framework/react-native'
 import { default as React, useEffect, useState } from 'react'
 import Config from 'react-native-config'
 import Toast from 'react-native-toast-message'
-import { useNavigation } from '@react-navigation/core'
 
 import { initStoredLanguage } from './App/localization'
 import RootStack from './App/navigators/RootStack'
@@ -21,12 +20,8 @@ import toastConfig from './configs/toast/toastConfig'
 
 const App = () => {
   const [agent, setAgent] = useState<Agent | undefined>(undefined)
-  const [deepLink, setDeepLink] = useState<string | undefined>(undefined)
-  // const { translations } = useContext(LocalizationContext)
 
   initStoredLanguage()
-
-  const navigation = useNavigation()
 
   const initAgent = async () => {
     const newAgent = new Agent(

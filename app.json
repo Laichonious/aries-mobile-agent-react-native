@@ -1,7 +1,4 @@
 {
   "name": "aries-bifold",
-  "displayName": "Aries Bifold",
-  "expo": {
-    "scheme": "didcomm"
-  }
+  "displayName": "Aries Bifold"
 }
