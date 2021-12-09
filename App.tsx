@@ -20,7 +20,6 @@ import toastConfig from './configs/toast/toastConfig'
 
 const App = () => {
   const [agent, setAgent] = useState<Agent | undefined>(undefined)
-  // const { translations } = useContext(LocalizationContext)
 
   initStoredLanguage()
 

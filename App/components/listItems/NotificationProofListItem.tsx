@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/core'
 import { useConnectionById } from '@aries-framework/react-hooks'
 import { ProofRecord } from '@aries-framework/core'
 import { DateTime } from 'luxon'
+import { useTranslation } from 'react-i18next'
 
 import Text from '../texts/Text'
 
@@ -36,11 +37,12 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
     borderBottomColor: disabledTextColor,
   },
-  date: { fontSize: 10, alignSelf: 'flex-start', paddingRight: 15, paddingTop: 5 },
+  date: { fontSize: 10, alignSelf: 'flex-end', paddingRight: 15, paddingTop: 5 },
 })
 
 const NotificationProofListItem: React.FC<Props> = ({ notification, pending }) => {
   const navigation = useNavigation()
+  const { t } = useTranslation()
 
   const { connectionId, requestMessage, id, createdAt } = notification
 
@@ -60,7 +62,10 @@ const NotificationProofListItem: React.FC<Props> = ({ notification, pending }) =
           <Text style={styles.title}>{requestMessage?.indyProofRequest?.name}</Text>
           <Text style={{ fontSize: 12 }}>{connection?.alias || connection?.invitation?.label}</Text>
         </View>
-        <Text style={styles.date}>{DateTime.fromJSDate(createdAt).toFormat('LLL d, yyyy')}</Text>
+        <View>
+          <Text style={styles.date}>{DateTime.fromJSDate(createdAt).toFormat('LLL d, yyyy')}</Text>
+          <Text style={styles.date}>{t('ProofRequest.Proof')}</Text>
+        </View>
       </View>
     </TouchableOpacity>
   )
