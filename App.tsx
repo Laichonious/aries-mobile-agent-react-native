@@ -17,7 +17,7 @@ import { Linking } from 'react-native'
 import { useNavigation } from '@react-navigation/core'
 
 import { initStoredLanguage } from './App/localization'
-// import handleUrl from './App/linking'
+import handleUrl from './App/linking'
 import RootStack from './App/navigators/RootStack'
 import indyLedgers from './configs/ledgers/indy'
 import toastConfig from './configs/toast/toastConfig'
@@ -30,36 +30,36 @@ const App = () => {
 
   const navigation = useNavigation()
 
-  const handleUrl = (event: any) => {
-    console.log(event.url)
-    let cleanedUrl = event.url.split('didcomm://app/')[1]
+  // const handleUrl = (event: any) => {
+  //   console.log(event.url)
+  //   let cleanedUrl = event.url.split('didcomm://app/')[1]
 
-    switch (true) {
-      case cleanedUrl.startsWith('invitation'):
-        const queryString = cleanedUrl.split('?')?.[1]
-        console.log(queryString)
-        return navigation.navigate('Scan', {
-          params: queryString,
-        })
-      default:
-        return navigation.navigate('Home')
-    }
-  }
-
-  // const handleNavigation = (url: any) => {
-  //   const nav = handleUrl(url)
-  //   console.log(nav)
+  //   switch (true) {
+  //     case cleanedUrl.startsWith('invitation'):
+  //       const queryString = cleanedUrl.split('?')?.[1]
+  //       console.log(queryString)
+  //       return navigation.navigate('Scan', {
+  //         params: queryString,
+  //       })
+  //     default:
+  //       return navigation.navigate('Home')
+  //   }
   // }
+
+  const handleNavigation = (url: any) => {
+    const nav = handleUrl(url)
+    console.log(nav)
+  }
 
   Linking.getInitialURL()
     .then((event) => {
       if (event) {
-        handleUrl(event)
+        handleNavigation(event)
       }
     })
     .catch((err) => console.warn(err))
 
-  Linking.addEventListener('url', handleUrl)
+  Linking.addEventListener('url', handleNavigation)
 
   const initAgent = async () => {
     const newAgent = new Agent(

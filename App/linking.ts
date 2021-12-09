@@ -19,13 +19,10 @@
 // }
 
 const handleUrl = (event: any) => {
-  console.log(event)
-  let cleanedUrl = event.url.split(linking.prefixes[1] + '://app/')[1]
-  console.log(cleanedUrl)
+  let cleanedUrl = event.url.split(linking.prefixes[0] + '://app/')[1]
   switch (true) {
     case cleanedUrl.startsWith('invitation'):
       const queryString = cleanedUrl.split('?')?.[1]
-      console.log(queryString)
       return [
         'Scan',
         {
