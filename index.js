@@ -42,7 +42,7 @@ const navigationTheme = {
 const Base = () => {
   return (
     <NavigationContainer theme={navigationTheme}>
-      <App path="app" />
+      <App />
     </NavigationContainer>
   )
 }

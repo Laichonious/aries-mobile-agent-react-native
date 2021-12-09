@@ -24,26 +24,12 @@ import toastConfig from './configs/toast/toastConfig'
 
 const App = () => {
   const [agent, setAgent] = useState<Agent | undefined>(undefined)
+  const [deepLink, setDeepLink] = useState<string | undefined>(undefined)
   // const { translations } = useContext(LocalizationContext)
 
   initStoredLanguage()
 
   const navigation = useNavigation()
-
-  const handleNavigation = (url: any) => {
-    const nav = handleUrl(url)
-    console.log(nav)
-  }
-
-  Linking.getInitialURL()
-    .then((event) => {
-      if (event) {
-        handleNavigation(event)
-      }
-    })
-    .catch((err) => console.warn(err))
-
-  Linking.addEventListener('url', handleNavigation)
 
   const initAgent = async () => {
     const newAgent = new Agent(
@@ -70,7 +56,20 @@ const App = () => {
     setAgent(newAgent)
   }
 
-  //
+  // const handleNavigation = (url: any) => {
+  //   const nav = handleUrl(url)
+  //   console.log(nav)
+  // }
+
+  // Linking.getInitialURL()
+  //   .then((event) => {
+  //     if (event) {
+  //       handleNavigation(event)
+  //     }
+  //   })
+  //   .catch((err) => console.warn(err))
+
+  // Linking.addEventListener('url', handleNavigation)
 
   useEffect(() => {
     initAgent()

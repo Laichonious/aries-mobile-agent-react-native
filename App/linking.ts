@@ -1,41 +1,51 @@
-// import { useNavigation } from '@react-navigation/core'
+import { useEffect, useState } from 'react'
+import { Linking } from 'react-native'
 
-// const navigation = useNavigation()
-
-// const handleUrl = (url: any) => {
-//   console.log(url)
-//   let cleanedUrl = url.split(linking.prefixes[1] + '://app/')[1]
-
+// export const handleUrl = (url: string) => {
+//   let cleanedUrl = url.split('didcomm://')[1]
 //   switch (true) {
 //     case cleanedUrl.startsWith('invitation'):
 //       const queryString = cleanedUrl.split('?')?.[1]
-//       console.log(queryString)
-//       return navigation.navigate('Scan', {
-//         params: queryString,
-//       })
+//       return [
+//         'Scan',
+//         {
+//           params: queryString,
+//         },
+//       ]
 //     default:
-//       return navigation.navigate('Home')
+//       return ['Home']
 //   }
 // }
 
-const handleUrl = (event: any) => {
-  let cleanedUrl = event.url.split(linking.prefixes[0] + '://app/')[1]
-  switch (true) {
-    case cleanedUrl.startsWith('invitation'):
-      const queryString = cleanedUrl.split('?')?.[1]
-      return [
-        'Scan',
-        {
-          params: queryString,
-        },
-      ]
-    default:
-      return ['Home']
-  }
+// const linking = {
+//   prefixes: ['didcomm'],
+// }
+
+const useDidCommDeepLink = (deepLinkCallback: (url: string, initialUrl: boolean) => void) => {
+  const [handledInitialUrl, setHandledInitialUrl] = useState(false)
+
+  useEffect(() => {
+    if (!handledInitialUrl) {
+      Linking.getInitialURL()
+        .then((url: string | null) => {
+          if (url) {
+            setHandledInitialUrl(true)
+            deepLinkCallback(url, true)
+          }
+        })
+        .catch((err: any) => console.warn(err))
+    }
+  }, [])
+
+  useEffect(() => {
+    const eventCallback = (event: any) => deepLinkCallback(event.url, false)
+
+    Linking.addEventListener('url', eventCallback)
+
+    return () => {
+      Linking.removeEventListener('url', eventCallback)
+    }
+  }, [deepLinkCallback])
 }
 
-const linking = {
-  prefixes: ['didcomm'],
-}
-
-export default handleUrl
+export default useDidCommDeepLink

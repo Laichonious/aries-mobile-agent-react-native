@@ -50,7 +50,7 @@ const CredentialListItem: React.FC<Props> = ({ credential, disabled }) => {
           {credential?.credentialAttributes?.find((n) => n.name === 'given_name')?.value}{' '}
           {credential?.credentialAttributes?.find((n) => n.name === 'surname')?.value}
         </Text>
-        <Image style={{ height: 50, width: 50 }} source={{ uri: connection?.imageUrl }} />
+        <Image style={{ height: 50, width: 50, borderRadius: 50 }} source={{ uri: connection?.imageUrl }} />
       </View>
     </TouchableOpacity>
   )
